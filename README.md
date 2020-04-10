@@ -10,17 +10,18 @@
 
 Формат ввода
 [  
-    ["Mallory", "Everest", "Mont Blanc", "Pillar Rock"],  
-    ["Mawson", "South Pole", "New Hebrides"],  
-    ["Hillary", "Everest", "South Pole"]  
+      ["Mallory", "Everest", "Mont Blanc", "Pillar Rock"],  
+      ["Mawson", "South Pole", "New Hebrides"],  
+      ["Hillary", "Everest", "South Pole"]  
 ]
+
 Формат вывода
 [  
-    ["Everest", "Hillary", "Mallory"],  
-    ["South Pole", "Hillary", "Mawson"],  
-    ["Mont Blanc", "Mallory"],  
-    ["Pillar Rock", "Mallory"],  
-    ["New Hebrides", "Mawson"]  
+      ["Everest", "Hillary", "Mallory"],  
+      ["South Pole", "Hillary", "Mawson"],  
+      ["Mont Blanc", "Mallory"],  
+      ["Pillar Rock", "Mallory"],  
+      ["New Hebrides", "Mawson"]  
 ]
 
 # B. Метеозонд
