@@ -66,7 +66,7 @@ const dictionary = [’James’, ’Bond’];
 Bond James Bond
 
 Примечания
-В файле task.js(см. приложенные файлы) описан метод, который принимает на вход два аргумента - data и dictionary. В переменной data передается массив объектов вида:
+В файле task.js(https://gist.github.com/alt-j/0f30495b549cddcab8b95ae76bcd9b49#file-task-js) описан метод, который принимает на вход два аргумента - data и dictionary. В переменной data передается массив объектов вида:
 
 {  
     geometry: [number, number];  
