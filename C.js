@@ -1,78 +1,66 @@
 /*
-это задание не прошел, начиная с 4 теста время выполнения программы превышало лимит
-удалил строки с 9 по 12 из исходного файла - специально оставленная бага
-не догадался сразу, что надо сначала проверить data на наличие слов, отсутствующих в dicionary, а потом уже сортировать по координатам
-
-выкладываю исправленную программу
+это задание не прошел, на 5 тесте выпадает ошибка runtime-error	344ms / 11.18Mb, остальные тесты выполнены успешно. Не понимаю в чем дело. Возможно в именах ключей (они написаны в кавычках), не успел проверить этот кейс, но очень врядли
 P.S. все лежит в 1 функции потому, что так удобнее было переносить в окно ввода ответа
 */
 
 //массивы, на которых тестировал
 const data = [  
     {geometry: [10, 20],  
-    text: 'James'},
-    
+    text: 'James'},    
     {geometry: [20, 40],  
-    text: 'Bond'},
-    
+    text: 'Bond'},    
     {geometry: [5, 40],  
-    text: 'Bond'},
-    
+    text: 'Bond'},    
     {geometry: [10, 75],  
-        text: 'Fuck'}
+    text: 'Fuck'}
 ];  
+const data2 = [
+    {"geometry": [10, 20],
+    "text": "James"},
+    {"geometry": [20, 40],
+    "text": "Bond"},
+    {"geometry": [5, 40],
+    "text": "Bond"}
+]
 const dictionary = ['James', 'Bond', 'Fuck'];
+const dictionary2 = ["James", "Bond"];
 
 var moduleExports = function (inputData, inputDictionary) {
-    function sortByCoordinates(arr) {
-        for (var i = 0, endI = arr.length - 1; i < endI; i++) {
-            for (var j = 0, endJ = endI - i; j < endJ; j++) {
-                let thisX = arr[j].geometry[0];
-                let nextX = arr[j + 1].geometry[0];
-                if (thisX > nextX) {
-                    var swap = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = swap;
-                }
-            }
-        }
-        return arr;
-    } ; 
+    var qsort = (arr) => {
+        let median = 0;
+        arr.map(item => {median += item["geometry"][0]});
+        median = Math.floor(median/2);
+        let less = arr.filter(item => item["geometry"][0] <= median);
+        let more = arr.filter(item => item["geometry"][0] > median);
+        less.sort(( a, b ) =>  a["geometry"][0] - b["geometry"][0]);
+        more.sort(( a, b ) =>  a["geometry"][0] - b["geometry"][0]);
+        return [...less, ...more]
+    };
 
-    var textMessages = function (arr) {
-        let textMessagesArr = [];
-        for (let i = 0; i < arr.length; i++) {
-            textMessagesArr.push(arr[i].text);
-        };
-        return textMessagesArr.join(' ')
-    };    
-    
-    let getAbsentWords = function () {
-        let arr = [];
-        for (let i = 0; i < inputData.length; i++) {            
+    let isAbsentWords = function () {
+        for (let i = 0; i < inputData.length-1; i++) {            
             let found = false;
             for (let j = 0; j < inputDictionary.length; j++) {
-                if (inputData[i].text === inputDictionary[j]) {
+                if (inputData[i]["text"] === inputDictionary[j]) {
                     found = true;
+                    break
                 };
             };           
     
             if (!found) {
-                arr.push(inputData[i].text);
+                return true
             };
         };
-        return arr
-    };    
-    
-    let absentWords = getAbsentWords();    
-    
-    if (absentWords.length) {
+        return false
+    }; 
+
+    if (isAbsentWords()) {
         return "Unreadable message";
     } else {
-        sortByCoordinates(inputData);
-        let resultMessage = textMessages(inputData);        
-        return resultMessage;
-    };         
+        return qsort(inputData)
+        .map(item => item["text"])
+        .join(' ');
+    };
 };
 
 console.log(moduleExports(data, dictionary));
